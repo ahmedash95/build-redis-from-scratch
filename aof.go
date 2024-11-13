@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"io"
 	"os"
 	"sync"
@@ -71,7 +72,7 @@ func (aof *Aof) Read(fn func(value Value)) error {
 	for {
 		value, err := reader.Read()
 		if err != nil {
-			if err == io.EOF {
+			if errors.Is(err, io.EOF) {
 				break
 			}
 
